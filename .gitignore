@@ -1,0 +1,37 @@
+# Modelsim files
+work/
+transcript
+vsim.wlf
+*.mpf
+*.ini
+
+# Xilinx WebISE files
+xlnx_auto_0_xdb/
+_xmsgs/
+iseconfig/
+_ngo/
+*.bit
+*.bgn
+*.bit
+*.bld
+*.cmd_log
+*.drc
+*.lso
+*.ncd
+*.ngc
+*.ngd
+*.ngr
+*.pad
+*.par
+*.pcf
+*.prj
+*.ptwx
+*.stx
+*.syr
+*.twr
+*.twx
+*.unroutes
+*.ut
+*.xpi
+*.xst
+*._xmsgs

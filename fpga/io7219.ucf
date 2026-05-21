@@ -1,0 +1,6 @@
+net fclk        loc=T9;
+net reset       loc=K4;
+net push_button loc=E11;
+net Din         loc=M3;
+net CS          loc=N1;
+net CLK         loc=L4;
