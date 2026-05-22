@@ -1,11 +1,11 @@
-module ROM_controller (clk, rst, addr, outData);
-    input clk, rst;
-    input reg [3:0] addr;
+module ROM_controller (clk, rst, pulse, outData);
+    input clk, rst, pulse;
     output reg [63:0] outData;
 
+    reg [3:0] address;
     reg [63:0] mem [0:9]; 
 
-    always @(posedge fclk or posedge rst) begin
+    always @(posedge clk or posedge rst) begin
         if (rst) begin
             mem[0] <= 64'h3f800000_40000000;
             mem[1] <= 64'hbf800000_3f800000; 
@@ -20,9 +20,9 @@ module ROM_controller (clk, rst, addr, outData);
             address <= 0;
         end 
         else if (pulse) begin
-            OutData <= mem[address];
+            outData <= mem[address];
             address <= (address == 9) ? 0 : (address + 1);
         end
     end
 
-end
+endmodule
