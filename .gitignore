@@ -1,5 +1,6 @@
 # Modelsim files
 work/
+sim/
 transcript
 vsim.wlf
 *.mpf
