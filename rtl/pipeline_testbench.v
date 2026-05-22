@@ -1,6 +1,6 @@
 `define CYCLE 20
 
-module testbench;
+module pipeline_testbench;
 parameter vectors = 10;  
 reg clk,rst;
 reg [31:0] A, B;
@@ -55,7 +55,7 @@ reg [31:0] correctOut_delayed; // <--- ΝΕΑ ΜΕΤΑΒΛΗΤΗ: Εδώ θα "�
           
     always #(`CYCLE/2) clk=~clk;
     
-      SPFP_adder CUT (
+      SPFP_pipeline_adder CUT (
           .clk(clk),
           .rst(rst),
           .A(A),

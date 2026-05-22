@@ -1,4 +1,4 @@
-module SPFP_adder (clk, rst, A, B, out);
+module SPFP_pipeline_adder (clk, rst, A, B, out);
     input clk, rst;
     input [31:0] A, B;
     output reg [31:0] out;
