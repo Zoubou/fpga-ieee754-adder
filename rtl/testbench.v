@@ -1,7 +1,7 @@
 `define CYCLE 20
 
 module testbench;
-parameter vectors = 10;  // This is the number of entries in the input file: number of FP additions 
+parameter vectors = 10;  
 reg	clk,rst;
 reg	[31:0] A, B;
 wire [31:0] out;
@@ -11,9 +11,8 @@ reg [3*32-1:0] fp_InOut[0:vectors-1];
 reg [3*32-1:0] FPVal;
 reg [31:0] correctOut;
 
-      // Open the test file and read the two input operands A and B as well as the correct (expected) output 	
-      initial 
-        $readmemh("vectors.hex", fp_InOut);  // You may have to change the path to the test file
+      initial begin
+        $readmemh("vectors.hex", fp_InOut);  
       end
 
       initial
@@ -25,7 +24,7 @@ reg [31:0] correctOut;
           errors = 0;
           for (i=0; i < vectors; i=i+1)
             begin	
-              FPVal = fp_InOut[i];       // read each entry of the test file
+              FPVal = fp_InOut[i];       
               A = FPVal[95:64]; 
               B = FPVal[63:32]; 
               correctOut = FPVal[31:0]; 
@@ -39,9 +38,14 @@ reg [31:0] correctOut;
 			$display ("Num of Errors = %4d\n", errors);
 			$stop;
 		end
-	       
+	        
 	  always #(`CYCLE/2) clk=~clk;
 		
-      // Instantiate the FP Adder 
-      my_adder_single_cycle CUT (clk, reset, A, B, out);
+      SPFP_adder CUT (
+          .clk(clk),
+          .rst(rst),
+          .A(A),
+          .B(B),
+          .out(out)
+      );
 endmodule
