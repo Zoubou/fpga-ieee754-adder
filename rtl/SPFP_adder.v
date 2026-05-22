@@ -1,11 +1,11 @@
-module SPFP_adder (A, B, clk, reset, sum);
+module SPFP_adder (clk, rst, A, B, out);
+    input clk, rst;
     input [31:0] A, B;
-    input clk, reset;
-    output reg [31:0] sum;
+    output reg [31:0] out;
     reg [31:0] reg_A, reg_B;
     
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
             reg_A <= 0;
             reg_B <= 0;
         end else begin
@@ -19,8 +19,8 @@ module SPFP_adder (A, B, clk, reset, sum);
     wire sign_B = reg_B[31];
     wire [7:0] exp_B = reg_B[30:23];
 
-    wire [48:0] ext_M_A = {2'b01, 1'b1, reg_A[22:0], 23'b0};
-    wire [48:0] ext_M_B = {2'b01, 1'b1, reg_B[22:0], 23'b0};
+    wire [48:0] ext_M_A = {2'b00, 1'b1, reg_A[22:0], 23'b0};
+    wire [48:0] ext_M_B = {2'b00, 1'b1, reg_B[22:0], 23'b0};
 
     reg [7:0] sum_exp;
     reg [7:0] exp_diff;
@@ -81,7 +81,7 @@ module SPFP_adder (A, B, clk, reset, sum);
                     end
                 endcase
                                 
-                mantissa_sum = comp2_M_A + comp2_M_B;
+                mantissa_sum = {comp2_M_A[48], comp2_M_A} + {comp2_M_B[48], comp2_M_B};
                 if (mantissa_sum[49] == 1'b1) begin
                     final_sign   = 1'b1;                 
                     abs_mantissa = ~mantissa_sum + 1'b1; 
@@ -115,7 +115,7 @@ module SPFP_adder (A, B, clk, reset, sum);
                     end
                 endcase
 
-                mantissa_sum = comp2_M_A + comp2_M_B;
+                mantissa_sum = {comp2_M_A[48], comp2_M_A} + {comp2_M_B[48], comp2_M_B};
                 if (mantissa_sum[49] == 1'b1) begin
                     final_sign   = 1'b1;                 
                     abs_mantissa = ~mantissa_sum + 1'b1; 
@@ -154,11 +154,11 @@ module SPFP_adder (A, B, clk, reset, sum);
         end
     end
 
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
-            sum <= 32'd0;
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            out <= 32'd0;
         end else begin
-            sum <= final_sum;
+            out <= final_sum;
         end
     end
 
