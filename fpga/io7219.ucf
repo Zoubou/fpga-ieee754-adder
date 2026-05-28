@@ -1,6 +1,6 @@
-net fclk        loc=T9;
-net reset       loc=K4;
+net clk        loc=T9;
+net rst       loc=K4;
 net push_button loc=E11;
-net Din         loc=M3;
+net DIN         loc=M3;
 net CS          loc=N1;
-net CLK         loc=L4;
+net SPI_CLK         loc=L4;
