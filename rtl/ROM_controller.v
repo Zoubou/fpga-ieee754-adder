@@ -18,6 +18,7 @@ module ROM_controller (clk, rst, pulse, outData);
             mem[8] <= 64'h00000000_00000000;
             mem[9] <= 64'h38108900_bb908900;
             address <= 0;
+				outData <= 64'd0;
         end 
         else if (pulse) begin
             outData <= mem[address];
